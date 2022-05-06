@@ -1,25 +1,66 @@
 
+let usuario=  prompt("Ingresa tu nombre")
+console.log("Bienvenido " + usuario);
+let ordenTotal = 0 
 
-for (let dia = 1; dia <=7; dia++) {
- 
-    switch (dia) {
-        case 1: console.log("El 1 es lunes")
+menu()
+function menu(){
+    let opcion= parseInt (prompt(usuario + " selecciona el producto a agregar: \n \n 1 - Cafe $40 \n 2 - Chocolate $60 \n 3 - Medialunas $100 \n 4 - Alfajor $50  \n 5 - Pagar  \n 6 - Terminar programa \n      Total de la orden $"+ ordenTotal))
+
+switch (opcion){
+    case 1:
+        console.log("Seleccionaste Cafe")
+        alert("Seleccionaste Cafe")
+        agregarAlTotal(40)
+        menu();
         break;
-        case 2: console.log("El 2 es martes")
+
+        case 2:
+        console.log("Seleccionaste Chocolate")
+        alert("Seleccionaste Chocolate")
+
+        agregarAlTotal(60)
+        menu();
+
         break;
-        case 3: console.log("El 3 es miercoles")
+
+        case 3:
+        console.log("Seleccionaste Medialunas")
+        alert("Seleccionaste Medialunas")
+
+        agregarAlTotal(100)
+        menu();
+
         break;
-        case 4: console.log("El 4 es jueves")
+
+        case 4:
+        console.log("Seleccionaste Alfajor")
+        alert("Seleccionaste Alfajor")
+        agregarAlTotal(50)
+        menu();
+
         break;
-        case 5: console.log("El 5 es viernes")
+
+        case 5:
+        console.log("Dirijase al mostrador")
+        alert("Dirijase al mostrador")
+
         break;
-        case 6: console.log("El 6 es sabado")
+
+        case 6:
+        console.log("Terminar programa")
         break;
-        case 7: console.log("El 7 es domingo")
-        break;
-    
+
+    default:
+        console.log("Opcion no valida")
+        menu();
         
-    }
-    
-    
 }
+}
+function agregarAlTotal(precio){
+    ordenTotal = ordenTotal + precio
+    
+
+return ordenTotal}
+
+
