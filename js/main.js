@@ -1,66 +1,70 @@
-
-let usuario=  prompt("Ingresa tu nombre")
-console.log("Bienvenido " + usuario);
-let ordenTotal = 0 
-
-menu()
-function menu(){
-    let opcion= parseInt (prompt(usuario + " selecciona el producto a agregar: \n \n 1 - Cafe $40 \n 2 - Chocolate $60 \n 3 - Medialunas $100 \n 4 - Alfajor $50  \n 5 - Pagar  \n 6 - Terminar programa \n      Total de la orden $"+ ordenTotal))
-
-switch (opcion){
-    case 1:
-        console.log("Seleccionaste Cafe")
-        alert("Seleccionaste Cafe")
-        agregarAlTotal(40)
-        menu();
-        break;
-
-        case 2:
-        console.log("Seleccionaste Chocolate")
-        alert("Seleccionaste Chocolate")
-
-        agregarAlTotal(60)
-        menu();
-
-        break;
-
-        case 3:
-        console.log("Seleccionaste Medialunas")
-        alert("Seleccionaste Medialunas")
-
-        agregarAlTotal(100)
-        menu();
-
-        break;
-
-        case 4:
-        console.log("Seleccionaste Alfajor")
-        alert("Seleccionaste Alfajor")
-        agregarAlTotal(50)
-        menu();
-
-        break;
-
-        case 5:
-        console.log("Dirijase al mostrador")
-        alert("Dirijase al mostrador")
-
-        break;
-
-        case 6:
-        console.log("Terminar programa")
-        break;
-
-    default:
-        console.log("Opcion no valida")
-        menu();
-        
-}
-}
-function agregarAlTotal(precio){
-    ordenTotal = ordenTotal + precio
+const saludar = ()=>{//funcion flecha que se repite hasta que se ingrese un valor por prompt
+    let usuario=  prompt("Ingresa tu nombre")
+    while (usuario===""){
+        usuario=  prompt("Ingresa tu nombre")
     
+    }
+    return usuario //return usuario para poder ser utilizado por una variable global "nombreCliente"
+    };
+    let nombreCliente = saludar();
+    console.log("Bienvenido " + nombreCliente);
 
-return ordenTotal}
 
 
+//clase constructora de productos "Molde"
+class Producto{
+    constructor(nombre,precio,id){
+        this.nombre = nombre;
+        this.precio = precio;
+        this.id = id;
+
+    }
+}
+
+//creacion de productos
+const cafe = new Producto("cafe",50,1)
+const medialunas = new Producto("medialunas",50,2)
+const te = new Producto("te",50,3)
+const alfajor = new Producto("alfajor",50,4)
+
+const listaProductos=[cafe,medialunas,te,alfajor]
+const carrito=[]
+
+const mostrarProductos = ()=>{ //funcion que recorre el array con productos y los muestra al usuario
+    let nombre = "";
+    listaProductos.forEach(element=>{
+        nombre +=`${element.id} ${element.nombre} $${element.precio}\n` 
+    }
+    );
+
+    let opcionMenu = parseInt(prompt(`Seleccione el id del producto\n${nombre}`));
+    
+    return opcionMenu;
+};
+
+
+
+
+
+//funcion que agrega productos al carrito
+const pushearCarrito = (id)=>{ 
+    id=mostrarProductos()
+    let productoFind = listaProductos.find((element)=> element.id === id);
+        carrito.push(productoFind);
+    console.log("Los productos seleccionados son:")
+    console.log(carrito)
+
+
+    let seguir = confirm("Desea agregar otro producto?: ") 
+
+    if(seguir===true) {
+        
+        pushearCarrito()
+
+    }
+
+        }
+
+pushearCarrito()
+
+        
