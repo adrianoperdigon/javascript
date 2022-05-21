@@ -1,70 +1,59 @@
-const saludar = ()=>{//funcion flecha que se repite hasta que se ingrese un valor por prompt
-    let usuario=  prompt("Ingresa tu nombre")
-    while (usuario===""){
-        usuario=  prompt("Ingresa tu nombre")
-    
-    }
-    return usuario //return usuario para poder ser utilizado por una variable global "nombreCliente"
-    };
-    let nombreCliente = saludar();
-    console.log("Bienvenido " + nombreCliente);
+console.log("Bienvenido")
 
 
+const inputNombre = document.querySelector("#nombre"),
+  inputPrecio = document.querySelector("#precio"),
+  inputImg = document.querySelector("#img"),
+  btnGuardar = document.querySelector("#btnGuardar"),
+  contenedor = document.querySelector("#contenedor");
 
-//clase constructora de productos "Molde"
-class Producto{
-    constructor(nombre,precio,id){
-        this.nombre = nombre;
-        this.precio = precio;
-        this.id = id;
+const productos = [];
 
-    }
+class Producto {
+  constructor(nombre,precio, img) {
+    this.nombre = nombre;
+    this.precio = precio;
+    this.img = img;
+  }
 }
+function crearProducto(nombre,precio, img) {
+  nombre = inputNombre.value;
+  precio = inputPrecio.value;
+  img = inputImg.value;
+  return new Producto(nombre,precio, img);
+}
+function guardarProducto(producto) {
+  return productos.push(producto);
+}
+console.log(productos);
 
-//creacion de productos
-const cafe = new Producto("cafe",50,1)
-const medialunas = new Producto("medialunas",50,2)
-const te = new Producto("te",50,3)
-const alfajor = new Producto("alfajor",50,4)
-
-const listaProductos=[cafe,medialunas,te,alfajor]
-const carrito=[]
-
-const mostrarProductos = ()=>{ //funcion que recorre el array con productos y los muestra al usuario
-    let nombre = "";
-    listaProductos.forEach(element=>{
-        nombre +=`${element.id} ${element.nombre} $${element.precio}\n` 
-    }
-    );
-
-    let opcionMenu = parseInt(prompt(`Seleccione el id del producto\n${nombre}`));
-    
-    return opcionMenu;
-};
-
-
-
-
-
-//funcion que agrega productos al carrito
-const pushearCarrito = (id)=>{ 
-    id=mostrarProductos()
-    let productoFind = listaProductos.find((element)=> element.id === id);
-        carrito.push(productoFind);
-    console.log("Los productos seleccionados son:")
-    console.log(carrito)
+function crearHTML() {
+  let html;
+  for (const producto of productos) {
+    html = `
+    <div class="row">
+  <div class="col-sm-3">
+  <div class="card" style="width: 18rem;">
+  <img src="${producto.img}" class="card-img-top" alt="">
+  <div class="card-body">
+    <h5 class="card-title">${producto.nombre}</h5>
+    <p class="card-text">$${producto.precio}</p>
+    <a href="#" class="btn btn-primary">Comprar</a>
+  </div>
+  </div>
+  </div>
+</div>`;
 
 
-    let seguir = confirm("Desea agregar otro producto?: ") 
 
-    if(seguir===true) {
-        
-        pushearCarrito()
 
-    }
-
-        }
-
-pushearCarrito()
-
-        
+  
+    //console.log(productos);
+  }
+  contenedor.innerHTML += html;
+}
+btnGuardar.addEventListener("click", () => {
+  const product = crearProducto(nombre,precio, img);
+  guardarProducto(product);
+  crearHTML(productos);
+});
