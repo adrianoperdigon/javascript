@@ -1,0 +1,15 @@
+#caja{
+    background-color: blue;
+    display:flex;
+    
+    gap: 30px;
+    
+}
+
+#carrito{
+    background-color: blue;
+    display:flex;
+    
+    gap: 30px;
+    
+}
