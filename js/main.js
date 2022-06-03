@@ -55,7 +55,7 @@ function crearCardProducto(){
       document.querySelector(`#btn${producto.id}`).addEventListener("click", ()=>{
         enviarAlCarrito(producto)
       })
-      
+     
      
   
     }) );
@@ -107,6 +107,15 @@ function borrarProducto() {
         carrito = carrito.filter((element) => element.id !== producto.id);
         pintarCarrito();
       });
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Se agrego al carrito',
+        showConfirmButton: false,
+       
+        timer: 800
+        
+      })
   });
 }
 
@@ -171,5 +180,7 @@ btnGuardar.addEventListener("click", () => {
   guardarProducto(product);
   crearHTML(productos);
 });
+
+
 
 
