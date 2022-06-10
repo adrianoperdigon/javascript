@@ -181,6 +181,44 @@ btnGuardar.addEventListener("click", () => {
   crearHTML(productos);
 });
 
+const formCaja = document.querySelector(".formCaja"); 
+const inputNombreBusqueda = document.querySelector("#busquedaNombre"); 
+const inputId = document.querySelector("#busquedaId"); 
+
+const caja = document.querySelector(".caja"); 
+
+
+
+const buscarPorId = (id) => {
+  fetch(`https://rickandmortyapi.com/api/character/${id}`)
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.error) {
+        throw new Error(data.error);
+      } else {
+        caja.innerHTML += `<div>
+        <img src="${data.image}">
+        <h4>${data.name}</h4>
+        <p>${data.species}</p>
+        <p>${data.status}</p>
+        </div>`;
+      }
+    })
+    .catch((error) => {
+      console.warn(error);
+      caja.innerHTML = `<h2>${error}</h2>`;
+    });
+};
+
+const escucharForm = () => {
+  formCaja.addEventListener("submit", (e) => {
+    e.preventDefault();
+    buscarPorId(inputId.value);
+  });
+};
+escucharForm();
+
+
 
 
 
